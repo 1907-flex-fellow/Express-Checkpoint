@@ -65,6 +65,8 @@ describe('Todo routes', () => {
     })
 
     xit('POST creates a new task for that user & responds with the created task', () => {
+      todos.add('sarah', { content: 'task 1 for sarah' })
+      todos.add('sarah', { content: 'task 2 for sarah' })
       return supertest
         .post('/users/sarah/tasks')
         .send({ content: 'a new task for sarah' }) // the HTTP request body
@@ -75,8 +77,8 @@ describe('Todo routes', () => {
             content: 'a new task for sarah',
             complete: false
           })
-          expect(todos.list('sarah')).to.have.length(1)
-          expect(todos.list('sarah')[0]).to.eql({
+          expect(todos.list('sarah')).to.have.length(3)
+          expect(todos.list('sarah')[2]).to.eql({
             content: 'a new task for sarah',
             complete: false
           })
